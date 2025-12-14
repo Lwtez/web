@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <title>Lab 3</title>
+    <h:outputStylesheet library="css" name="main.css" />
+
+    <h:outputScript library="js" name="main.js" target="head" />
+</h:head>
+
+<h:body onload="drawGraph(#{pointBean.r})">
+
+    <div class="formWindows">
+
+        <div class="lWindow">
+            <div class="coordGraph">
+                <canvas id="graphCanvas" width="400" height="400" onclick="handleCanvasClick(event)"></canvas>
+            </div>
+        </div>
+
+        <div class="rWindow">
+            <h:form id="checkForm">
+                <div id="validationArgs">
+
+                    <h:outputLabel value="Изменение X (-5 ... 3):" />
+                    <h:inputText id="xInput" value="#{pointBean.x}" maxlength="10">
+                        <f:validateDoubleRange minimum="-5" maximum="3" />
+                        <f:ajax execute="@this" render="xError" />
+                    </h:inputText>
+                    <h:message id="xError" for="xInput" style="color: red"/>
+
+                    <h:inputHidden id="yHidden" value="#{pointBean.y}" />
+                    <h:message for="yHidden" style="color: red" />
+
+                    <h:outputLabel value="Изменение Y:" />
+                    <div class="xButtons">
+                        <ui:repeat value="#{['-2','-1.5','-1','-0.5','0','0.5','1','1.5','2']}" var="val">
+                            <input type="button"
+                                   value="#{val}"
+                                   class="y-btn"
+                                   onclick="selectY(this, '#{val}')" />
+                        </ui:repeat>
+                    </div>
+
+                    <h:outputLabel value="Изменение R:" />
+                    <h:selectOneMenu id="rInput" value="#{pointBean.r}" style="width: 100%; padding: 5px;">
+                        <f:selectItem itemValue="1" itemLabel="1" />
+                        <f:selectItem itemValue="1.5" itemLabel="1.5" />
+                        <f:selectItem itemValue="2" itemLabel="2" />
+                        <f:selectItem itemValue="2.5" itemLabel="2.5" />
+                        <f:selectItem itemValue="3" itemLabel="3" />
+
+                        <f:ajax event="change" render="graphScriptPanel" />
+                    </h:selectOneMenu>
+
+                    <div class="ansButtons">
+                        <h:commandButton value="Проверить" action="#{pointBean.check}">
+                            <f:ajax execute="@form" render="@form resultTable graphScriptPanel" />
+                        </h:commandButton>
+
+                        <h:commandButton value="Очистить" action="#{resultsBean.clear}" styleClass="clear-btn">
+                            <f:ajax execute="@this" render="resultTable graphScriptPanel" />
+                        </h:commandButton>
+
+                        <h:link outcome="goToIndex" value="На стартовую" />
+                    </div>
+                </div>
+            </h:form>
+
+            <h:form id="hiddenForm" style="display:none;">
+                <h:inputHidden id="xGraph" value="#{pointBean.x}" />
+                <h:inputHidden id="yGraph" value="#{pointBean.y}" />
+                <h:inputHidden id="rGraph" value="#{pointBean.r}" />
+                <h:commandButton id="graphBtn" action="#{pointBean.check}">
+                    <f:ajax execute="@form" render="@all" />
+                </h:commandButton>
+            </h:form>
+        </div>
+    </div>
+
+    <h:dataTable id="resultTable" value="#{resultsBean.allResults}" var="res">
+        <h:column>
+            <f:facet name="header">X</f:facet>
+            #{res.x}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Y</f:facet>
+            #{res.y}
+        </h:column>
+        <h:column>
+            <f:facet name="header">R</f:facet>
+            #{res.r}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Результат</f:facet>
+            <span style="color: #{res.hit ? 'green' : 'red'}">
+                #{res.hitString}
+            </span>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Время (ms)</f:facet>
+            #{res.executionTime/1000000}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Время</f:facet>
+            #{res.checkDate}
+        </h:column>
+    </h:dataTable>
+
+        <h:panelGroup id="graphScriptPanel">
+        <script>
+            var rStr = "#{pointBean.r}".replace(',', '.');
+            var currentR = parseFloat(rStr);
+
+            var points = [
+                <ui:repeat value="#{resultsBean.allResults}" var="res">
+                    {x: #{res.x}, y: #{res.y}},
+                </ui:repeat>
+            ];
+
+            if (typeof drawGraph === "function") {
+                drawGraph(currentR, points);
+            }
+        </script>
+    </h:panelGroup>
+
+</h:body>
+</html>
