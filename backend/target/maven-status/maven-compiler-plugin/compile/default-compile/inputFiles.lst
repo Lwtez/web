@@ -1,0 +1,10 @@
+/Users/daniil/IdeaProjects/Lab41/backend/src/main/java/org/example/backend/service/UserService.java
+/Users/daniil/IdeaProjects/Lab41/backend/src/main/java/org/example/backend/rest/CorsFilter.java
+/Users/daniil/IdeaProjects/Lab41/backend/src/main/java/org/example/backend/rest/AuthResource.java
+/Users/daniil/IdeaProjects/Lab41/backend/src/main/java/org/example/backend/rest/SecurityFilter.java
+/Users/daniil/IdeaProjects/Lab41/backend/src/main/java/org/example/backend/rest/PointResource.java
+/Users/daniil/IdeaProjects/Lab41/backend/src/main/java/org/example/backend/model/User.java
+/Users/daniil/IdeaProjects/Lab41/backend/src/main/java/org/example/backend/dto/PointDTO.java
+/Users/daniil/IdeaProjects/Lab41/backend/src/main/java/org/example/backend/RestApplication.java
+/Users/daniil/IdeaProjects/Lab41/backend/src/main/java/org/example/backend/model/Result.java
+/Users/daniil/IdeaProjects/Lab41/backend/src/main/java/org/example/backend/service/PointService.java

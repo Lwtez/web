@@ -1,0 +1,10 @@
+org/example/backend/service/PointService.class
+org/example/backend/dto/PointDTO.class
+org/example/backend/rest/SecurityFilter.class
+org/example/backend/model/User.class
+org/example/backend/rest/AuthResource.class
+org/example/backend/model/Result.class
+org/example/backend/rest/PointResource.class
+org/example/backend/rest/CorsFilter.class
+org/example/backend/RestApplication.class
+org/example/backend/service/UserService.class
