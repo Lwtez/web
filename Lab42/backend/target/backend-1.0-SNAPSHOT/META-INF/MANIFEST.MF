@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: daniil
+Build-Jdk: Microsoft OpenJDK 11.0.29 - aarch64
+

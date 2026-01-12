@@ -1,0 +1,17 @@
+package org.example.backend.dto;
+
+public class PointDTO {
+    public double x;
+    public double y;
+    public double r;
+    public String owner;
+
+    public double getX() { return x; }
+    public void setX(double x) { this.x = x; }
+    public double getY() { return y; }
+    public void setY(double y) { this.y = y; }
+    public double getR() { return r; }
+    public void setR(double r) { this.r = r; }
+    public String getOwner() { return owner; }
+    public void setOwner(String owner) { this.owner = owner;}
+}
